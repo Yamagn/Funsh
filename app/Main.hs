@@ -1,4 +1,9 @@
 module Main where
 
+import System.Environment(getArgs)
+
 main :: IO ()
-main = return()
+main = do
+    args <- getArgs
+    putStrLn $ args !! 0
+    return ()
