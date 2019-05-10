@@ -3,21 +3,27 @@ module Main where
 import System.Environment(getArgs)
 import Commands(fush_pwd)
 
+promptLine = do
+    putStr "> "
+    getLine
+
 main :: IO ()
 main = do
     fush_loop
+    return ()
 
 fush_loop = do
-    putStr "> "
-    line <- getLine
+    line <- promptLine
     let args = words line
-    if args !! 0 == "exit"
+    if (length args) == 0
+        then fush_loop
+    else if (head args) == "exit"
         then return ()
-        else do
-            case args !! 0 of
-                "pwd" -> do
-                    fush_pwd
-                    fush_loop
-                _ -> do
-                    let err = "Fush: Command not found " ++ (args !! 0)
-                    putStrLn err
+    else do
+        case head args of
+            "pwd" -> do
+                fush_pwd
+                fush_loop
+            _ -> do
+                putStrLn $ "Fush: Command not found: " ++ (head args)
+                fush_loop
