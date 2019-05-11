@@ -1,3 +1,3 @@
-# Changelog for Fush
+# Changelog for funsh
 
 ## Unreleased changes
